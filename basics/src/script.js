@@ -1,6 +1,19 @@
 import * as THREE from "three";
 const canvas = document.querySelector("canvas.webgl");
 const scene = new THREE.Scene();
+const cursor = {
+  x: 0,
+  y: 0,
+};
+const sizes = {
+  width: 600,
+  height: 500,
+};
+window.addEventListener("mousemove", (e) => {
+  const { clientX, clientY } = e;
+  cursor.x = clientX / sizes.width - 0.5;
+  cursor.y = clientY / sizes.height - 0.5;
+});
 
 // mesh.position.x = 0;
 // mesh.position.y = 0;
@@ -18,10 +31,7 @@ const scene = new THREE.Scene();
 // mesh.quaternion.x = 0.4;
 // console.log(mesh.position.length());
 //sizes
-const sizes = {
-  width: 600,
-  height: 500,
-};
+
 const aspectRatio = sizes.width / sizes.height;
 //camera
 
@@ -81,22 +91,26 @@ renderer.setSize(sizes.width, sizes.height);
 //   100
 // );
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height);
-camera.position.z = 2;
+camera.position.z = 3;
 scene.add(camera);
 
 const cubeGeometry = new THREE.BoxGeometry(1, 1);
 const basicMaterial = new THREE.MeshBasicMaterial({ color: 0x00ffff });
 const boxMesh = new THREE.Mesh(cubeGeometry, basicMaterial);
-boxMesh.rotation.set(1, 0, 1);
 
 scene.add(boxMesh);
-
+const clock = new THREE.Clock();
 const animate = () => {
+  const elapsedTime = clock.getElapsedTime();
+  camera.position.x = Math.sin(cursor.x * 10) * 3;
+  camera.position.z = Math.cos(cursor.x * 10) * 3;
+  camera.position.z = Math.cos(cursor.x * 10) * 3;
+  camera.position.y = cursor.y * 5;
+  camera.lookAt(boxMesh.position);
+  renderer.render(scene, camera);
   requestAnimationFrame(() => {
-    boxMesh.rotation.x += 0.1;
-    console.log("here");
+    animate();
   });
-  // animate();
 };
 animate();
 renderer.render(scene, camera);
