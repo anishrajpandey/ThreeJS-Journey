@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 const canvas = document.querySelector("canvas.webgl");
 const scene = new THREE.Scene();
 const cursor = {
@@ -94,6 +95,11 @@ const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height);
 camera.position.z = 3;
 scene.add(camera);
 
+//orbitcontrols
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true;
+// controls.target.y = 2;
+
 const cubeGeometry = new THREE.BoxGeometry(1, 1);
 const basicMaterial = new THREE.MeshBasicMaterial({ color: 0x00ffff });
 const boxMesh = new THREE.Mesh(cubeGeometry, basicMaterial);
@@ -102,15 +108,16 @@ scene.add(boxMesh);
 const clock = new THREE.Clock();
 const animate = () => {
   const elapsedTime = clock.getElapsedTime();
-  camera.position.x = Math.sin(cursor.x * 10) * 3;
-  camera.position.z = Math.cos(cursor.x * 10) * 3;
-  camera.position.z = Math.cos(cursor.x * 10) * 3;
-  camera.position.y = cursor.y * 5;
-  camera.lookAt(boxMesh.position);
-  renderer.render(scene, camera);
+  // camera.position.x = Math.sin(cursor.x * 10) * 3;
+  // camera.position.z = Math.cos(cursor.x * 10) * 3;
+  // camera.position.z = Math.cos(cursor.x * 10) * 3;
+  // camera.position.y = cursor.y * 5;
+  // camera.lookAt(boxMesh.position);
+  controls.update();
   requestAnimationFrame(() => {
     animate();
   });
+  renderer.render(scene, camera);
 };
 animate();
 renderer.render(scene, camera);
