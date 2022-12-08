@@ -11,12 +11,42 @@ const sizes = {
   width: window.innerWidth,
   height: window.innerHeight,
 };
+
+const aspectRatio = sizes.width / sizes.height;
+const renderer = new THREE.WebGLRenderer({
+  canvas,
+});
+renderer.setSize(sizes.width, sizes.height);
+
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
 window.addEventListener("mousemove", (e) => {
   const { clientX, clientY } = e;
   cursor.x = clientX / sizes.width - 0.5;
   cursor.y = clientY / sizes.height - 0.5;
 });
+window.addEventListener("resize", (e) => {
+  //update sizes
+  sizes.width = window.innerWidth;
+  sizes.height = window.innerHeight;
 
+  //update camera
+  camera.aspect = sizes.width / sizes.height;
+  camera.updateProjectionMatrix();
+  renderer.setSize(sizes.width, sizes.height);
+});
+
+//full screen
+
+window.addEventListener("dblclick", (e) => {
+  if (!document.fullscreenElement) {
+    //go full screen
+    canvas.requestFullscreen();
+  } else {
+    // leave full screen
+    document.exitFullscreen();
+  }
+});
 // mesh.position.x = 0;
 // mesh.position.y = 0;
 // mesh.position.z = 0;
@@ -34,7 +64,6 @@ window.addEventListener("mousemove", (e) => {
 // console.log(mesh.position.length());
 //sizes
 
-const aspectRatio = sizes.width / sizes.height;
 //camera
 
 // console.log(
@@ -46,9 +75,6 @@ const aspectRatio = sizes.width / sizes.height;
 // const axesHelper = new THREE.AxesHelper();
 // scene.add(axesHelper);
 //renderer
-const renderer = new THREE.WebGLRenderer({
-  canvas,
-});
 
 //group
 // const cube1 = new THREE.Mesh(
@@ -70,7 +96,6 @@ const renderer = new THREE.WebGLRenderer({
 // group.add(cube1, cube2, cube3);
 // group.add(mesh);
 // scene.add(group);
-renderer.setSize(sizes.width, sizes.height);
 
 // const geometry1 = new THREE.BoxGeometry(1, 1, 1);
 // const material1 = new THREE.MeshBasicMaterial({ color: 0xf0ff00 });
