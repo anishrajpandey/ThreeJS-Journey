@@ -20,17 +20,10 @@ const scene = new THREE.Scene();
 //sizes
 const sizes = {
   width: 600,
-  height: 400,
+  height: 500,
 };
+const aspectRatio = sizes.width / sizes.height;
 //camera
-const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height);
-camera.position.z = 5;
-camera.position.x = 1.96;
-camera.position.y = 0.9;
-
-// camera.lookAt(mesh.position);
-
-scene.add(camera);
 
 // console.log(
 //   "🤔 > mesh.position.distanceTo(camera.position);",
@@ -77,9 +70,33 @@ renderer.setSize(sizes.width, sizes.height);
 // const mesh = new THREE.Mesh(geometry, material);
 // scene.add(mesh);
 
-const cubeGeometry = new THREE.BoxGeometry(2, 2);
+// camera.position.x = 2.96;
+// camera.position.y = 1.9;
+// const camera = new THREE.OrthographicCamera(
+//   -1 * aspectRatio,
+//   1 * aspectRatio,
+//   1,
+//   -1,
+//   0.1,
+//   100
+// );
+const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height);
+camera.position.z = 2;
+scene.add(camera);
+
+const cubeGeometry = new THREE.BoxGeometry(1, 1);
 const basicMaterial = new THREE.MeshBasicMaterial({ color: 0x00ffff });
 const boxMesh = new THREE.Mesh(cubeGeometry, basicMaterial);
+boxMesh.rotation.set(1, 0, 1);
+
 scene.add(boxMesh);
 
+const animate = () => {
+  requestAnimationFrame(() => {
+    boxMesh.rotation.x += 0.1;
+    console.log("here");
+  });
+  // animate();
+};
+animate();
 renderer.render(scene, camera);
