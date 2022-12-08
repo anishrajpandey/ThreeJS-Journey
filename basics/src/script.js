@@ -1,9 +1,6 @@
 import * as THREE from "three";
 const canvas = document.querySelector("canvas.webgl");
 const scene = new THREE.Scene();
-// const geometry = new THREE.BoxGeometry(1, 1, 1);
-// const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-// const mesh = new THREE.Mesh(geometry, material);
 
 // mesh.position.x = 0;
 // mesh.position.y = 0;
@@ -19,7 +16,6 @@ const scene = new THREE.Scene();
 // mesh.quaternion.x = 0.3;
 // mesh.quaternion.z = 0.4;
 // mesh.quaternion.x = 0.4;
-//todo scene.add(mesh);
 // console.log(mesh.position.length());
 //sizes
 const sizes = {
@@ -70,9 +66,20 @@ const renderer = new THREE.WebGLRenderer({
 // group.add(mesh);
 // scene.add(group);
 renderer.setSize(sizes.width, sizes.height);
-renderer.render(scene, camera);
+
+// const geometry1 = new THREE.BoxGeometry(1, 1, 1);
+// const material1 = new THREE.MeshBasicMaterial({ color: 0xf0ff00 });
+// const mesh1 = new THREE.Mesh(geometry, material);
+// scene.add(mesh1);
+
+// const geometry = new THREE.BoxGeometry(1, 1, 1);
+// const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+// const mesh = new THREE.Mesh(geometry, material);
+// scene.add(mesh);
 
 const cubeGeometry = new THREE.BoxGeometry(2, 2);
-const basicMaterial = new THREE.MeshBasicMaterial({ color: "red" });
+const basicMaterial = new THREE.MeshBasicMaterial({ color: 0x00ffff });
 const boxMesh = new THREE.Mesh(cubeGeometry, basicMaterial);
 scene.add(boxMesh);
+
+renderer.render(scene, camera);
