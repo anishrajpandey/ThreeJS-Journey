@@ -1,3 +1,4 @@
+import "./style.css";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 const canvas = document.querySelector("canvas.webgl");
@@ -7,8 +8,8 @@ const cursor = {
   y: 0,
 };
 const sizes = {
-  width: 600,
-  height: 500,
+  width: window.innerWidth,
+  height: window.innerHeight,
 };
 window.addEventListener("mousemove", (e) => {
   const { clientX, clientY } = e;
@@ -97,6 +98,7 @@ scene.add(camera);
 
 //orbitcontrols
 const controls = new OrbitControls(camera, canvas);
+controls.enableZoom = false;
 controls.enableDamping = true;
 // controls.target.y = 2;
 
