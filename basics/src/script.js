@@ -127,9 +127,19 @@ controls.enableZoom = false;
 controls.enableDamping = true;
 // controls.target.y = 2;
 
-const cubeGeometry = new THREE.BoxGeometry(1, 1);
-const basicMaterial = new THREE.MeshBasicMaterial({ color: 0x00ffff });
-const boxMesh = new THREE.Mesh(cubeGeometry, basicMaterial);
+// const geometry = new THREE.BoxGeometry(1, 1, 1, 4, 4, 4);
+const geometry = new THREE.Geometry();
+// const vertex1 = new THREE.Vector3(0, 0, 0);
+// geometry.vertices.push(vertex1);
+// geometry.vertices.push(new THREE.Vector3(0, 1, 0));
+// geometry.vertices.push(new THREE.Vector3(1, 0, 0));
+// const face=new THREE.Face3(0,1,0)
+// geometry.faces.push(face)
+const basicMaterial = new THREE.MeshBasicMaterial({
+  color: 0x00ffff,
+  wireframe: true,
+});
+const boxMesh = new THREE.Mesh(geometry, basicMaterial);
 
 scene.add(boxMesh);
 const clock = new THREE.Clock();
