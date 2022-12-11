@@ -127,14 +127,14 @@ controls.enableZoom = false;
 controls.enableDamping = true;
 // controls.target.y = 2;
 
-// const geometry = new THREE.BoxGeometry(1, 1, 1, 4, 4, 4);
-const geometry = new THREE.Geometry();
+const geometry = new THREE.BoxBufferGeometry(1, 1, 1, 4, 4, 4);
+// const geometry = new THREE.BufferGeometry();
 // const vertex1 = new THREE.Vector3(0, 0, 0);
 // geometry.vertices.push(vertex1);
 // geometry.vertices.push(new THREE.Vector3(0, 1, 0));
 // geometry.vertices.push(new THREE.Vector3(1, 0, 0));
-// const face=new THREE.Face3(0,1,0)
-// geometry.faces.push(face)
+// const face = new Face3(0, 1, 0);
+// geometry.faces.push(face);
 const basicMaterial = new THREE.MeshBasicMaterial({
   color: 0x00ffff,
   wireframe: true,
