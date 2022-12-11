@@ -134,12 +134,12 @@ const boxMesh = new THREE.Mesh(cubeGeometry, basicMaterial);
 scene.add(boxMesh);
 const clock = new THREE.Clock();
 const animate = () => {
-  const elapsedTime = clock.getElapsedTime();
+  // const elapsedTime = clock.getElapsedTime();
   // camera.position.x = Math.sin(cursor.x * 10) * 3;
   // camera.position.z = Math.cos(cursor.x * 10) * 3;
   // camera.position.z = Math.cos(cursor.x * 10) * 3;
   // camera.position.y = cursor.y * 5;
-  // camera.lookAt(boxMesh.position);
+  camera.lookAt(boxMesh.position);
   controls.update();
   requestAnimationFrame(() => {
     animate();
@@ -148,3 +148,4 @@ const animate = () => {
 };
 animate();
 renderer.render(scene, camera);
+// hello world
