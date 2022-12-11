@@ -148,4 +148,3 @@ const animate = () => {
 };
 animate();
 renderer.render(scene, camera);
-// hello world
