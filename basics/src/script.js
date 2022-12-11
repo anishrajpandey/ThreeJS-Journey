@@ -1,6 +1,7 @@
 import "./style.css";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { BufferGeometry } from "three";
 const canvas = document.querySelector("canvas.webgl");
 const scene = new THREE.Scene();
 const cursor = {
@@ -127,7 +128,7 @@ controls.enableZoom = false;
 controls.enableDamping = true;
 // controls.target.y = 2;
 
-const geometry = new THREE.BoxBufferGeometry(1, 1, 1, 4, 4, 4);
+// const geometry = new THREE.BoxBufferGeometry(1, 1, 1, 4, 4, 4);
 // const geometry = new THREE.BufferGeometry();
 // const vertex1 = new THREE.Vector3(0, 0, 0);
 // geometry.vertices.push(vertex1);
@@ -135,6 +136,15 @@ const geometry = new THREE.BoxBufferGeometry(1, 1, 1, 4, 4, 4);
 // geometry.vertices.push(new THREE.Vector3(1, 0, 0));
 // const face = new Face3(0, 1, 0);
 // geometry.faces.push(face);
+const geometry = new BufferGeometry();
+const count = 233;
+const positionsArray = new Float32Array(count * 3 * 3);
+for (let i = 0; i < count * 3 * 3; i++) {
+  positionsArray[i] = Math.random() - 0.5 * 9;
+}
+const positionsAttribute = new THREE.BufferAttribute(positionsArray, 3);
+geometry.setAttribute("position", positionsAttribute);
+
 const basicMaterial = new THREE.MeshBasicMaterial({
   color: 0x00ffff,
   wireframe: true,
