@@ -1,7 +1,7 @@
 import "./style.css";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { BufferGeometry } from "three";
+import { BufferGeometry, Material } from "three";
 import * as dat from "dat.gui";
 
 const canvas = document.querySelector("canvas.webgl");
@@ -170,6 +170,19 @@ const animate = () => {
   renderer.render(scene, camera);
 };
 animate();
+camera.lookAt(boxMesh.position);
+
 const gui = new dat.GUI();
-gui.add(boxMesh.position, "y");
+const parameters = {
+  color: 0xff0000,
+};
+
+gui.add(boxMesh.position, "y", -3, 3, 0.1);
+gui.add(boxMesh.position, "x", -3, 3, 0.1);
+gui.add(boxMesh.position, "z", -3, 3, 0.1);
+gui.add(boxMesh, "visible");
+gui.add(basicMaterial, "wireframe");
+gui.addColor(parameters, "color").onChange(() => {
+  basicMaterial.color.set(parameters.color);
+});
 renderer.render(scene, camera);
