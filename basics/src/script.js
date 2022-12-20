@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { BufferGeometry, Material } from "three";
 import * as dat from "dat.gui";
-
+import gsap from "gsap";
 const canvas = document.querySelector("canvas.webgl");
 const scene = new THREE.Scene();
 const cursor = {
@@ -175,6 +175,10 @@ camera.lookAt(boxMesh.position);
 const gui = new dat.GUI();
 const parameters = {
   color: 0xff0000,
+  spin: () => {
+    console.log("here");
+    gsap.to(boxMesh.rotation, { duration: 1, y: 10 });
+  },
 };
 
 gui.add(boxMesh.position, "y", -3, 3, 0.1);
@@ -185,4 +189,5 @@ gui.add(basicMaterial, "wireframe");
 gui.addColor(parameters, "color").onChange(() => {
   basicMaterial.color.set(parameters.color);
 });
+gui.add(parameters, "spin");
 renderer.render(scene, camera);
