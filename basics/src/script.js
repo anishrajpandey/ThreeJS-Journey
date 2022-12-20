@@ -2,6 +2,8 @@ import "./style.css";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { BufferGeometry } from "three";
+import * as dat from "dat.gui";
+
 const canvas = document.querySelector("canvas.webgl");
 const scene = new THREE.Scene();
 const cursor = {
@@ -168,4 +170,6 @@ const animate = () => {
   renderer.render(scene, camera);
 };
 animate();
+const gui = new dat.GUI();
+gui.add(boxMesh.position, "y");
 renderer.render(scene, camera);
