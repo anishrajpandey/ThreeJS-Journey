@@ -1,7 +1,7 @@
 import "./style.css";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { BufferGeometry, Material } from "three";
+import textureImage from "./texture.png";
 import * as dat from "dat.gui";
 import gsap from "gsap";
 const canvas = document.querySelector("canvas.webgl");
@@ -14,6 +14,7 @@ const sizes = {
   width: window.innerWidth,
   height: window.innerHeight,
 };
+console.log(textureImage);
 
 const aspectRatio = sizes.width / sizes.height;
 const renderer = new THREE.WebGLRenderer({
