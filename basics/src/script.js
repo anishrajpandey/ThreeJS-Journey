@@ -149,9 +149,23 @@ const geometry = new THREE.BoxBufferGeometry(1, 1, 1, 4, 4, 4);
 // const positionsAttribute = new THREE.BufferAttribute(positionsArray, 3);
 // geometry.setAttribute("position", positionsAttribute);
 
+const textureLoader = new THREE.TextureLoader();
+const texture = textureLoader.load(
+  "assets/images/b507675cedd1f96a.png",
+  () => {
+    console.log("load");
+  },
+  () => {
+    console.log("progress");
+  },
+  () => {
+    console.log("error");
+  }
+);
 const basicMaterial = new THREE.MeshBasicMaterial({
   color: 0x00ffff,
-  wireframe: true,
+  // wireframe: true,
+  map: texture,
 });
 const boxMesh = new THREE.Mesh(geometry, basicMaterial);
 
@@ -191,9 +205,4 @@ gui.addColor(parameters, "color").onChange(() => {
 });
 gui.add(parameters, "spin");
 
-const image = new Image();
-image.onload = () => {
-  console.log("image loaded");
-};
-image.src = "assets/images/b507675cedd1f96a.png";
 renderer.render(scene, camera);
