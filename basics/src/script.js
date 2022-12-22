@@ -176,7 +176,6 @@ const gui = new dat.GUI();
 const parameters = {
   color: 0xff0000,
   spin: () => {
-    console.log("here");
     gsap.to(boxMesh.rotation, { duration: 1, y: 10 });
   },
 };
