@@ -190,4 +190,10 @@ gui.addColor(parameters, "color").onChange(() => {
   basicMaterial.color.set(parameters.color);
 });
 gui.add(parameters, "spin");
+
+const image = new Image();
+image.onload = () => {
+  console.log("image loaded");
+};
+image.src = "assets/images/b507675cedd1f96a.png";
 renderer.render(scene, camera);
