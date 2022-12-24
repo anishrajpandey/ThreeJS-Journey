@@ -4,6 +4,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import textureImage from "./texture.png";
 import * as dat from "dat.gui";
 import gsap from "gsap";
+import { Texture } from "three";
 const canvas = document.querySelector("canvas.webgl");
 const scene = new THREE.Scene();
 const cursor = {
@@ -126,7 +127,7 @@ scene.add(camera);
 
 //orbitcontrols
 const controls = new OrbitControls(camera, canvas);
-controls.enableZoom = false;
+// controls.enableZoom = false;
 controls.enableDamping = true;
 // controls.target.y = 2;
 
@@ -162,6 +163,8 @@ const texture = textureLoader.load("assets/images/b507675cedd1f96a.png");
 // loadingManager.onStart = () => {
 //   console.log("start");
 // };
+texture.generateMipmaps = false;
+texture.minFilter = THREE.NearestFilter;
 const basicMaterial = new THREE.MeshBasicMaterial({
   color: 0x00ffff,
   // wireframe: true,
