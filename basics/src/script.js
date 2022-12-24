@@ -151,6 +151,12 @@ const loadingManager = new THREE.LoadingManager();
 
 const textureLoader = new THREE.TextureLoader(loadingManager);
 const texture = textureLoader.load("assets/images/b507675cedd1f96a.png");
+texture.repeat.x = 1;
+texture.repeat.y = 1;
+// texture.wrapT = THREE.MirroredRepeatWrapping;
+// texture.wrapS = THREE.MirroredRepeatWrapping;
+// texture.offset.y = 3;
+texture.rotation = Math.PI * 0.25;
 loadingManager.onStart = () => {
   console.log("start");
 };
