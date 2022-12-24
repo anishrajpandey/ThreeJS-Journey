@@ -14,7 +14,6 @@ const sizes = {
   width: window.innerWidth,
   height: window.innerHeight,
 };
-console.log(textureImage);
 
 const aspectRatio = sizes.width / sizes.height;
 const renderer = new THREE.WebGLRenderer({
@@ -148,25 +147,19 @@ const geometry = new THREE.BoxBufferGeometry(1, 1, 1, 4, 4, 4);
 // }
 // const positionsAttribute = new THREE.BufferAttribute(positionsArray, 3);
 // geometry.setAttribute("position", positionsAttribute);
+const loadingManager = new THREE.LoadingManager();
 
-const textureLoader = new THREE.TextureLoader();
-const texture = textureLoader.load(
-  "assets/images/b507675cedd1f96a.png",
-  () => {
-    console.log("load");
-  },
-  () => {
-    console.log("progress");
-  },
-  () => {
-    console.log("error");
-  }
-);
+const textureLoader = new THREE.TextureLoader(loadingManager);
+const texture = textureLoader.load("assets/images/b507675cedd1f96a.png");
+loadingManager.onStart = () => {
+  console.log("start");
+};
 const basicMaterial = new THREE.MeshBasicMaterial({
   color: 0x00ffff,
   // wireframe: true,
   map: texture,
 });
+console.log(geometry.attributes.uv);
 const boxMesh = new THREE.Mesh(geometry, basicMaterial);
 
 scene.add(boxMesh);
