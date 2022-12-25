@@ -173,7 +173,7 @@ const basicMaterial = new THREE.MeshBasicMaterial({
 console.log(geometry.attributes.uv);
 const boxMesh = new THREE.Mesh(geometry, basicMaterial);
 
-scene.add(boxMesh);
+//todo  scene.add(boxMesh);
 const clock = new THREE.Clock();
 const animate = () => {
   // const elapsedTime = clock.getElapsedTime();
@@ -191,7 +191,7 @@ const animate = () => {
 animate();
 camera.lookAt(boxMesh.position);
 
-const gui = new dat.GUI();
+// const gui = new dat.GUI();
 const parameters = {
   color: 0xff0000,
   spin: () => {
@@ -199,14 +199,29 @@ const parameters = {
   },
 };
 
-gui.add(boxMesh.position, "y", -3, 3, 0.1);
-gui.add(boxMesh.position, "x", -3, 3, 0.1);
-gui.add(boxMesh.position, "z", -3, 3, 0.1);
-gui.add(boxMesh, "visible");
-gui.add(basicMaterial, "wireframe");
-gui.addColor(parameters, "color").onChange(() => {
-  basicMaterial.color.set(parameters.color);
-});
-gui.add(parameters, "spin");
+// gui.add(boxMesh.position, "y", -3, 3, 0.1);
+// gui.add(boxMesh.position, "x", -3, 3, 0.1);
+// gui.add(boxMesh.position, "z", -3, 3, 0.1);
+// gui.add(boxMesh, "visible");
+// gui.add(basicMaterial, "wireframe");
+// gui.addColor(parameters, "color").onChange(() => {
+//   basicMaterial.color.set(parameters.color);
+// });
+// gui.add(parameters, "spin");
+const sphere = new THREE.Mesh(
+  new THREE.SphereBufferGeometry(0.4, 16, 16),
+  new THREE.MeshBasicMaterial()
+);
+const plane = new THREE.Mesh(
+  new THREE.PlaneBufferGeometry(1, 1),
+  new THREE.MeshBasicMaterial()
+);
+const torus = new THREE.Mesh(
+  new THREE.TorusBufferGeometry(0.3, 0.2, 16, 32),
+  new THREE.MeshBasicMaterial()
+);
+plane.position.x = 1;
+torus.position.x = 2;
 
+scene.add(sphere, plane, torus);
 renderer.render(scene, camera);
