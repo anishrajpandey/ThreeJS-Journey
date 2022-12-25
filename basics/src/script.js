@@ -175,20 +175,7 @@ const boxMesh = new THREE.Mesh(geometry, basicMaterial);
 
 //todo  scene.add(boxMesh);
 const clock = new THREE.Clock();
-const animate = () => {
-  // const elapsedTime = clock.getElapsedTime();
-  // camera.position.x = Math.sin(cursor.x * 10) * 3;
-  // camera.position.z = Math.cos(cursor.x * 10) * 3;
-  // camera.position.z = Math.cos(cursor.x * 10) * 3;
-  // camera.position.y = cursor.y * 5;
-  camera.lookAt(boxMesh.position);
-  controls.update();
-  requestAnimationFrame(() => {
-    animate();
-  });
-  renderer.render(scene, camera);
-};
-animate();
+
 camera.lookAt(boxMesh.position);
 
 // const gui = new dat.GUI();
@@ -222,6 +209,24 @@ const torus = new THREE.Mesh(
 );
 plane.position.x = 1;
 torus.position.x = 2;
+
+const animate = () => {
+  const elapsedTime = clock.getElapsedTime();
+  // camera.position.x = Math.sin(cursor.x * 10) * 3;
+  // camera.position.z = Math.cos(cursor.x * 10) * 3;
+  // camera.position.z = Math.cos(cursor.x * 10) * 3;
+  // camera.position.y = cursor.y * 5;
+  sphere.rotation.x = 0.1 * elapsedTime;
+  plane.rotation.x = 0.1 * elapsedTime;
+  torus.rotation.x = 0.1 * elapsedTime;
+  camera.lookAt(boxMesh.position);
+  controls.update();
+  requestAnimationFrame(() => {
+    animate();
+  });
+  renderer.render(scene, camera);
+};
+animate();
 
 scene.add(sphere, plane, torus);
 renderer.render(scene, camera);
