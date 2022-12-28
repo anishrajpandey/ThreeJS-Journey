@@ -230,4 +230,3 @@ animate();
 
 scene.add(sphere, plane, torus);
 renderer.render(scene, camera);
-// hello dz
