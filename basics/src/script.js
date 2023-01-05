@@ -173,7 +173,7 @@ const basicMaterial = new THREE.MeshBasicMaterial({
 console.log(geometry.attributes.uv);
 const boxMesh = new THREE.Mesh(geometry, basicMaterial);
 
-//todo  scene.add(boxMesh);
+// todo scene.add(boxMesh);
 const clock = new THREE.Clock();
 
 camera.lookAt(boxMesh.position);
@@ -195,17 +195,21 @@ const parameters = {
 //   basicMaterial.color.set(parameters.color);
 // });
 // gui.add(parameters, "spin");
+let greenTexture = textureLoader.load("assets/images/textures/textureRed.jpg");
+const MeshBasicMaterial = new THREE.MeshBasicMaterial();
+MeshBasicMaterial.color = new THREE.Color("green");
+// MeshBasicMaterial.map = greenTexture;
 const sphere = new THREE.Mesh(
   new THREE.SphereBufferGeometry(0.4, 16, 16),
-  new THREE.MeshBasicMaterial()
+  MeshBasicMaterial
 );
 const plane = new THREE.Mesh(
   new THREE.PlaneBufferGeometry(1, 1),
-  new THREE.MeshBasicMaterial()
+  MeshBasicMaterial
 );
 const torus = new THREE.Mesh(
   new THREE.TorusBufferGeometry(0.3, 0.2, 16, 32),
-  new THREE.MeshBasicMaterial()
+  MeshBasicMaterial
 );
 plane.position.x = 1;
 torus.position.x = 2;
