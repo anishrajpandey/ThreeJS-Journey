@@ -4,7 +4,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import textureImage from "./texture.png";
 import * as dat from "dat.gui";
 import gsap from "gsap";
-import { Texture } from "three";
+import importedTexture from "./textures/door.jpg";
 const canvas = document.querySelector("canvas.webgl");
 const scene = new THREE.Scene();
 const cursor = {
@@ -195,24 +195,63 @@ const parameters = {
 //   basicMaterial.color.set(parameters.color);
 // });
 // gui.add(parameters, "spin");
-let greenTexture = textureLoader.load("assets/images/textures/textureRed.jpg");
-const MeshBasicMaterial = new THREE.MeshBasicMaterial();
-MeshBasicMaterial.color = new THREE.Color("green");
+let Texture = textureLoader.load(importedTexture);
+// const MeshBasicMaterial = new THREE.MeshBasicMaterial();
+// const normalMaterial = new THREE.MeshNormalMaterial();
+// normalMaterial.flatShading = true;
+// MeshBasicMaterial.color = new THREE.Color("green");
 // MeshBasicMaterial.map = greenTexture;
+
+// const matCapMaterial = new THREE.MeshMatcapMaterial();
+// const meshDepthMaterial = new THREE.MeshDepthMaterial();
+// const lambertMaterial = new THREE.MeshLambertMaterial();
+// const lambertMaterial = new THREE.MeshPhongMaterial();
+// lambertMaterial.shininess = 0;
+// lambertMaterial.specular = new THREE.Color("red");
+
+// const toonMaterial = new THREE.MeshToonMaterial();
+const standardMaterial = new THREE.MeshStandardMaterial();
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+const pointLight = new THREE.PointLight(0xffffff, 0.3);
+pointLight.position.set(2, 4, 2);
+scene.add(ambientLight, pointLight);
+standardMaterial.map = Texture;
 const sphere = new THREE.Mesh(
-  new THREE.SphereBufferGeometry(0.4, 16, 16),
-  MeshBasicMaterial
+  new THREE.SphereBufferGeometry(0.4, 20, 20),
+  standardMaterial
 );
 const plane = new THREE.Mesh(
-  new THREE.PlaneBufferGeometry(1, 1),
-  MeshBasicMaterial
+  new THREE.PlaneBufferGeometry(1, 1, 20, 20),
+  standardMaterial
 );
 const torus = new THREE.Mesh(
-  new THREE.TorusBufferGeometry(0.3, 0.2, 16, 32),
-  MeshBasicMaterial
+  new THREE.TorusBufferGeometry(0.3, 0.2, 20, 20),
+  standardMaterial
 );
+
+sphere.geometry.setAttribute(
+  "uv2",
+  new THREE.BufferAttribute(plane.geometry.attributes.uv.array, 2)
+);
+torus.geometry.setAttribute(
+  "uv2",
+  new THREE.BufferAttribute(plane.geometry.attributes.uv.array, 2)
+);
+plane.geometry.setAttribute(
+  "uv2",
+  new THREE.BufferAttribute(plane.geometry.attributes.uv.array, 2)
+);
+standardMaterial.displacementMap = Texture;
+standardMaterial.displacementScale = 0.1;
+
 plane.position.x = 1;
 torus.position.x = 2;
+const gui = new dat.GUI();
+gui.add(standardMaterial, "metalness").min(0).max(1).step(0.01);
+gui.add(standardMaterial, "roughness", 0, 1, 0.01);
+
+gui.add(standardMaterial, "displacementScale", 0, 5, 0.001);
+gui.add(standardMaterial, "wireframe");
 
 const animate = () => {
   const elapsedTime = clock.getElapsedTime();
